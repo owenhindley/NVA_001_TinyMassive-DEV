@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 
 [ExecuteInEditMode]
-public class Main : MonoBehaviour {
+public class CaptureMain : MonoBehaviour {
 
 	public RenderTexture sourceTexture;
 	public RenderTexture targetTexture;
