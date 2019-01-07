@@ -20,17 +20,16 @@ public class ArtnetTransmit : MonoBehaviour
         }
     }
 
+    public const int NUM_UNIVERSES = 6;
+
     [System.Serializable]
     public class ArtNetInterface{
         public string IP;
-        public int[] universes;
+        public byte universe;
+        public ArtnetDmx packet;
         public ConcurrentQueue<byte[]> artnetQueue;
         public IPEndPoint endPoint;
     }
-
-    public const int NUM_UNIVERSES = 6;
-
-    public ArtnetDmx[] universePackets = new ArtnetDmx[NUM_UNIVERSES];
 
     public ArtNetInterface[] interfaceList;
     
@@ -44,6 +43,10 @@ public class ArtnetTransmit : MonoBehaviour
     public int texWidth = 77;
     public int texHeight = 13;
 
+    public int packetsSent = 0;
+
+    [InspectorButton("DebugSendDummyData")] public bool doSendDummyData;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,19 +58,19 @@ public class ArtnetTransmit : MonoBehaviour
             fixtures = parseCSV(File.ReadAllText(patchPath));
         }
 
+        interfaceList = new ArtNetInterface[NUM_UNIVERSES];
+        
+        for (int i=0; i < NUM_UNIVERSES; i++){
+            interfaceList[i] = new ArtNetInterface();
+            interfaceList[i].universe = (byte)i;
+            interfaceList[i].IP = (i <= 4)? TMConfig.Current.interfaceA_IP : TMConfig.Current.interfaceB_IP;    // bit of magic happening here, we have 2 boxes, one for universes 0-1, and another 2-5
+            interfaceList[i].packet = new ArtnetDmx((byte)i);
+            interfaceList[i].artnetQueue = new ConcurrentQueue<byte[]>();
+            interfaceList[i].endPoint = new IPEndPoint(IPAddress.Parse(interfaceList[i].IP), 6454);
+        }
+
         if (interfaceList.Length >= 2){
 
-            interfaceList[0].IP = TMConfig.Current.interfaceA_IP;
-            interfaceList[1].IP = TMConfig.Current.interfaceB_IP;
-
-            for (int i=0; i < interfaceList.Length; i++){
-                interfaceList[i].artnetQueue = new ConcurrentQueue<byte[]>();
-                interfaceList[i].endPoint = new IPEndPoint(IPAddress.Parse(interfaceList[i].IP), 6454);
-            }
-
-            for (int i=0; i < NUM_UNIVERSES; i++){
-                universePackets[i] = new ArtnetDmx((byte)i);
-            }
 
             worker = new Thread(SocketThreadLoop);
             worker.Start();
@@ -94,13 +97,32 @@ public class ArtnetTransmit : MonoBehaviour
     }
 
     public void RenderColor32Array(Color32[] arr){
+
+        // reset packets
+        for (int i=0; i < NUM_UNIVERSES; i++){
+            interfaceList[i].packet = new ArtnetDmx((byte)i);
+        }
+
+        // write array
         for (int i=0; i < arr.Length; i++){
             var f = fixtures[i];
-            universePackets[(int)f.universe].setChannel((ushort)f.address, arr[i].r);
-            universePackets[(int)f.universe].setChannel((ushort)(f.address+1), arr[i].g);
-            universePackets[(int)f.universe].setChannel((ushort)(f.address+2), arr[i].b);
+            interfaceList[(int)f.universe].packet.setChannel((ushort)f.address, arr[i].r);
+            interfaceList[(int)f.universe].packet.setChannel((ushort)(f.address+1), arr[i].g);
+            interfaceList[(int)f.universe].packet.setChannel((ushort)(f.address+2), arr[i].b);
+        }
+
+        // queue packets
+        for (int i=0; i < NUM_UNIVERSES; i++){
+            interfaceList[i].artnetQueue.Enqueue(interfaceList[i].packet.toBytes());
         }
         
+    }
+
+    void DebugSendDummyData(){
+
+        interfaceList[0].packet.setChannel(1, 255);
+        interfaceList[0].artnetQueue.Enqueue(interfaceList[0].packet.toBytes());
+
     }
 
 
@@ -116,6 +138,7 @@ public class ArtnetTransmit : MonoBehaviour
                         byte[] b;
                         if(interfaceList[i].artnetQueue.TryDequeue(out b)){
                             socket.SendTo(b, interfaceList[i].endPoint);
+                            packetsSent++;
                         } else {
                             HasError = true;
                         }
