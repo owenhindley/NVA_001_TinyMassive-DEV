@@ -19,6 +19,9 @@ public static class TMConfig {
             public string receiverIP;
             public string port;
             public int defaultFrameRate;
+			public string patchFilename;
+			public string interfaceA_IP;
+			public string interfaceB_IP;
         }
 
 		

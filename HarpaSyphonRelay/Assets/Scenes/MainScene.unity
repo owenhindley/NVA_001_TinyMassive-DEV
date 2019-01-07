@@ -2880,6 +2880,9 @@ MonoBehaviour:
     receiverIP: 127.0.0.1
     port: 1337
     defaultFrameRate: 30
+    patchFilename: combined-patch.csv
+    interfaceA_IP: 127.0.0.1
+    interfaceB_IP: 127.0.0.1
   EditorDoConfigOverride: 1
   doCreateConfigFile: 0
 --- !u!4 &1875561694
