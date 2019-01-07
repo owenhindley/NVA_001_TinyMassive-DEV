@@ -29,4 +29,10 @@ public class GUITools : MonoBehaviour
       pos += Vector2.up * (GUIItemHeight + GUIItemSpacing);
       return outValue;
    }
+
+   public static int IntSlider(ref Vector2 pos, int value, int min, int max){
+      int outValue = (int)GUI.HorizontalSlider(new Rect(pos.x, pos.y, buttonWidth, GUIItemHeight), value, min, max);
+      pos += Vector2.up * (GUIItemHeight + GUIItemSpacing);
+      return outValue;
+   }
 }

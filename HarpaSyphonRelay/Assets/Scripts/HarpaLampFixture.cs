@@ -48,12 +48,6 @@ public class HarpaLampFixture : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
 		if (block == null){
 			block = new MaterialPropertyBlock();
 		}
@@ -64,6 +58,12 @@ public class HarpaLampFixture : MonoBehaviour {
 		block.SetFloat("_PixelX", x + ((facade == Facade.Front) ? FrontFacadeOffset : 0));
 		block.SetFloat("_PixelY", y);
 		meshRenderer.SetPropertyBlock(block);
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
 
 		
 	}

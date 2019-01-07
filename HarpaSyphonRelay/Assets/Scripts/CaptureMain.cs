@@ -7,7 +7,6 @@ using TMPro;
 using Klak;
 using System.Runtime.InteropServices;
 using System;
-using System.Collections.Generic;
 
 [ExecuteInEditMode]
 public class CaptureMain : MonoBehaviour {
@@ -24,10 +23,12 @@ public class CaptureMain : MonoBehaviour {
 	public int yOffset = 0;
 
 	public int frameRate = 30;
+	private int updatedFrameRate = 30;
 
 	public Material croppedOutputMaterial;
 	public Shader cropShader;
 	public Klak.Syphon.SyphonClient syphonClient;
+	public NetworkSender sender;
 
 	public float debugNSourceTexX = 0.0f;
 	public float debugNSourceTexY = 0.0f;
@@ -39,9 +40,14 @@ public class CaptureMain : MonoBehaviour {
 
 	public string renderServerIP = "127.0.0.1";
 	public string renderServerPort = "1337";
+
+	public GameObject harpaModel;
 	
 	// Use this for initialization
 	IEnumerator Start () {
+		harpaModel = GameObject.Find("HarpaModel");
+		frameRate = TMConfig.Current.defaultFrameRate;
+
 		Application.targetFrameRate = frameRate;
 		croppedOutputMaterial = new Material(cropShader);
 		yield return new WaitForSeconds(1.0f);
@@ -55,6 +61,15 @@ public class CaptureMain : MonoBehaviour {
 			GUITools.Button(ref pos, "Hide UI", ()=>{
 				showUI = false;
 			});
+
+			GUITools.Button(ref pos, "Toggle Harpa model", ()=>{
+				if (harpaModel != null){
+					harpaModel.SetActive(!harpaModel.activeSelf);
+				}
+				
+			});
+
+			GUITools.Label(ref pos, "Frames Sent : " + sender.framesSent);
 
 			GUITools.Button(ref pos, "Update All", ()=>{
 				GetSyphonServerList();
@@ -93,6 +108,13 @@ public class CaptureMain : MonoBehaviour {
 			renderServerIP = GUITools.TextField(ref pos, renderServerIP);
 			renderServerPort = GUITools.TextField(ref pos, renderServerPort);
 
+			if (frameRate == updatedFrameRate){
+				GUITools.Label(ref pos, "Framerate : " + updatedFrameRate);
+			} else {
+				GUITools.Label(ref pos, "Framerate : " + frameRate + " : press update to change to " + updatedFrameRate);
+			}
+			updatedFrameRate = GUITools.IntSlider(ref pos, updatedFrameRate, 15, 50);
+			
 			
 
 		} else {
@@ -156,6 +178,8 @@ public class CaptureMain : MonoBehaviour {
 	public void UpdateSettings(){
 
 		Debug.Log("updating settings");
+		frameRate = updatedFrameRate;
+		Application.targetFrameRate = frameRate;
 		
 	}
 
