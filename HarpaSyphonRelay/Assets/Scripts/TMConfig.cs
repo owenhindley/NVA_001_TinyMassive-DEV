@@ -17,6 +17,7 @@ public static class TMConfig {
 		public struct Config {
 			public AppMode appMode;
             public string receiverIP;
+			public bool defaultEnableNetworkSender;
             public string port;
             public int defaultFrameRate;
 			public string patchFilename;

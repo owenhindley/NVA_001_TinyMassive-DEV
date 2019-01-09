@@ -2876,8 +2876,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EditorOverrideConfig:
-    appMode: 1
+    appMode: 0
     receiverIP: 127.0.0.1
+    defaultEnableNetworkSender: 0
     port: 1337
     defaultFrameRate: 30
     patchFilename: combined-patch.csv

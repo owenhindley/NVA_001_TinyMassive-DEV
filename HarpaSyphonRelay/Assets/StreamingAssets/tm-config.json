@@ -1,6 +1,7 @@
 {
-    "appMode": 1,
+    "appMode": 0,
     "receiverIP": "127.0.0.1",
+    "defaultEnableNetworkSender": false,
     "port": "1337",
     "defaultFrameRate": 30,
     "patchFilename": "combined-patch.csv",

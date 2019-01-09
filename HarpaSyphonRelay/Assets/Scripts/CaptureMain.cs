@@ -25,6 +25,8 @@ public class CaptureMain : MonoBehaviour {
 	public int frameRate = 30;
 	private int updatedFrameRate = 30;
 
+	public bool networkSendEnabled;
+
 	public Material croppedOutputMaterial;
 	public Shader cropShader;
 	public Klak.Syphon.SyphonClient syphonClient;
@@ -47,6 +49,7 @@ public class CaptureMain : MonoBehaviour {
 	IEnumerator Start () {
 		harpaModel = GameObject.Find("HarpaModel");
 		frameRate = TMConfig.Current.defaultFrameRate;
+		sender.enabled = TMConfig.Current.defaultEnableNetworkSender;
 
 		Application.targetFrameRate = frameRate;
 		croppedOutputMaterial = new Material(cropShader);
@@ -69,7 +72,18 @@ public class CaptureMain : MonoBehaviour {
 				
 			});
 
-			GUITools.Label(ref pos, "Frames Sent : " + sender.framesSent);
+			GUITools.Button(ref pos, networkSendEnabled ? "Disable Network Send" : "Enable Network Send", ()=>{
+				if (networkSendEnabled){
+					sender.enabled = false;
+				} else {
+					sender.enabled = true;
+				}
+
+				networkSendEnabled = !networkSendEnabled;
+			});
+
+			if (networkSendEnabled)
+				GUITools.Label(ref pos, "Frames Sent : " + sender.framesSent);
 
 			GUITools.Button(ref pos, "Update All", ()=>{
 				GetSyphonServerList();
@@ -104,9 +118,12 @@ public class CaptureMain : MonoBehaviour {
 				});
 			}
 
-			GUITools.Label(ref pos, "Render server IP");
-			renderServerIP = GUITools.TextField(ref pos, renderServerIP);
-			renderServerPort = GUITools.TextField(ref pos, renderServerPort);
+			if (networkSendEnabled) {
+				GUITools.Label(ref pos, "Render server IP");
+				renderServerIP = GUITools.TextField(ref pos, renderServerIP);
+				renderServerPort = GUITools.TextField(ref pos, renderServerPort);
+			}
+			
 
 			if (frameRate == updatedFrameRate){
 				GUITools.Label(ref pos, "Framerate : " + updatedFrameRate);
