@@ -2877,9 +2877,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interfaceList:
-  - IP: 2.0.0.0
+  - IP: 2.255.255.255
     universe: 0
-  - IP: 2.0.0.0
+  - IP: 2.255.255.255
     universe: 0
   enableSending: 1
   HasError: 0
@@ -2887,6 +2887,8 @@ MonoBehaviour:
   texWidth: 77
   texHeight: 13
   packetsSent: 0
+  dummyChannel: 40
+  dummyValue: 255
   doSendDummyData: 0
 --- !u!4 &526794543
 Transform:
@@ -3135,8 +3137,8 @@ MonoBehaviour:
     port: 1337
     defaultFrameRate: 30
     patchFilename: combined-patch.csv
-    interfaceA_IP: 2.0.0.21
-    interfaceB_IP: 2.0.0.21
+    interfaceA_IP: 2.255.255.255
+    interfaceB_IP: 2.255.255.255
   EditorDoConfigOverride: 1
   doCreateConfigFile: 0
 --- !u!4 &1263524927

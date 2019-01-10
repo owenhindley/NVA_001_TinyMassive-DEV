@@ -45,7 +45,14 @@ public class ArtnetTransmit : MonoBehaviour
 
     public int packetsSent = 0;
 
+    public int dummyChannel = 40;
+    public int dummyValue = 255;
+
+    public int debugPixelX = 39;
+    public int debugPixelY = 12;
+
     [InspectorButton("DebugSendDummyData")] public bool doSendDummyData;
+    [InspectorButton("FlashDebugPixel")] public bool doFlashDebugPixel;
 
     // Start is called before the first frame update
     void Start()
@@ -106,9 +113,10 @@ public class ArtnetTransmit : MonoBehaviour
         // write array
         for (int i=0; i < arr.Length; i++){
             var f = fixtures[i];
-            interfaceList[(int)f.universe-1].packet.setChannel((ushort)f.address, arr[i].r);
-            interfaceList[(int)f.universe-1].packet.setChannel((ushort)(f.address+1), arr[i].g);
-            interfaceList[(int)f.universe-1].packet.setChannel((ushort)(f.address+2), arr[i].b);
+            // adjust by 1 because.. I don't know
+            interfaceList[(int)f.universe-1].packet.setChannel((ushort)(f.address-1), arr[i].r);
+            interfaceList[(int)f.universe-1].packet.setChannel((ushort)(f.address+1-1), arr[i].g);
+            interfaceList[(int)f.universe-1].packet.setChannel((ushort)(f.address+2-1), arr[i].b);
         }
 
         // queue packets
@@ -120,8 +128,33 @@ public class ArtnetTransmit : MonoBehaviour
 
     void DebugSendDummyData(){
 
-        interfaceList[0].packet.setChannel(1, 255);
+        interfaceList[0].packet.setChannel((ushort)(dummyChannel-1), (byte)dummyValue);
         interfaceList[0].artnetQueue.Enqueue(interfaceList[0].packet.toBytes());
+
+    }
+
+    void FlashDebugPixel(){
+
+        StartCoroutine(DebugPixelFlash());
+    }
+
+    IEnumerator DebugPixelFlash(){
+
+        var arr = new Color32[texWidth * texHeight];
+        var pixelIndex = (debugPixelY * texWidth) + debugPixelX;
+
+        Debug.Log("Pixel index : " + pixelIndex);
+        Debug.Log("Pixel universe : " + fixtures[pixelIndex].universe);
+        Debug.Log("Pixel address : " + fixtures[pixelIndex].address);
+
+        bool flip = true;
+        for (int i=0; i < 8; i++){
+            arr[pixelIndex] = flip ? new Color32(255,255,255,255) : new Color32(0,0,0,255);
+            flip = !flip;
+            RenderColor32Array(arr);
+            yield return new WaitForSeconds(0.1f);
+            
+        }
 
     }
 
@@ -129,7 +162,10 @@ public class ArtnetTransmit : MonoBehaviour
     void SocketThreadLoop(){
         while(true){
 
-            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            // var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+
+            var udpClient = new UdpClient();
+            udpClient.EnableBroadcast = true;
 
             while(enableSending){
 
@@ -137,7 +173,7 @@ public class ArtnetTransmit : MonoBehaviour
                     while(interfaceList[i].artnetQueue.Count > 0){
                         byte[] b;
                         if(interfaceList[i].artnetQueue.TryDequeue(out b)){
-                            socket.SendTo(b, interfaceList[i].endPoint);
+                            udpClient.Send(b, b.Length, interfaceList[i].IP, 6454);
                             packetsSent++;
                         } else {
                             HasError = true;

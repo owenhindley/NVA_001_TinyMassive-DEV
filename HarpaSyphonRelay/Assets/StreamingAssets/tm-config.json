@@ -5,6 +5,6 @@
     "port": "1337",
     "defaultFrameRate": 30,
     "patchFilename": "combined-patch.csv",
-    "interfaceA_IP": "2.0.0.21",
-    "interfaceB_IP": "2.0.0.21"
+    "interfaceA_IP": "2.255.255.255",
+    "interfaceB_IP": "2.255.255.255"
 }
