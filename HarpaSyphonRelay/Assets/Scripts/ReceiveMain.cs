@@ -8,6 +8,7 @@ public class ReceiveMain : MonoBehaviour
 {
 
     public SocketReceiver receiver;
+    public ArtnetTransmit artnet;
 
     public int frameRate = 30;
     private int updatedFrameRate = 30;
@@ -21,15 +22,22 @@ public class ReceiveMain : MonoBehaviour
     public const int texWidth = 77;
     public const int texHeight = 13;
 
+    private float testCycleSpeed = 0.01f;
+
+    public bool testCycleRunning = false;
+
     public Texture2D receiveTex;
+    public RenderTexture croppedRT;
     public Material receiveMaterial;
     public Color32[] receiveColor32Array = new Color32[0];
     public Color[] receiveColorArray = new Color[0];
 
     public GameObject harpaModel;
 
+    [InspectorButton("RunTestCycle")] public bool doTestCycle;
+
     void OnGUI(){
-		Vector2 pos = new Vector2(200,70);
+		Vector2 pos = new Vector2(20,70);
 		if (showUI){
 			
 			GUITools.Button(ref pos, "Hide UI", ()=>{
@@ -44,12 +52,27 @@ public class ReceiveMain : MonoBehaviour
 				
 			});
 
+            if (!testCycleRunning){
+                GUITools.Label(ref pos, "Test Cycle Speed");
+                testCycleSpeed = ((float)GUITools.IntSlider(ref pos, Mathf.FloorToInt(testCycleSpeed * 1000.0f), 0, 1000) / 1000.0f);
+                GUITools.Button(ref pos, "Run Test Cycle", ()=>{
+                    RunTestCycle();
+                });
+            } else {
+                 GUITools.Button(ref pos, "Stop Test Cycle", ()=>{
+                    StopAllCoroutines();
+                    testCycleRunning = false;
+                });
+            }
+
             GUITools.Label(ref pos, "Frames received : " + framesReceived);
 			
 
 			GUITools.Button(ref pos, "Update All", ()=>{
 				UpdateSettings();
 			});
+
+            
 
 			if (frameRate == updatedFrameRate){
 				GUITools.Label(ref pos, "Framerate : " + updatedFrameRate);
@@ -96,6 +119,12 @@ public class ReceiveMain : MonoBehaviour
             receiveTex.Apply();
             framesReceived++;
             receivedNewFrame = false;
+
+            if (harpaModel.activeSelf){
+                Graphics.CopyTexture(receiveTex, croppedRT);
+            }
+
+            artnet.RenderColor32Array(receiveColor32Array);
         }
     }
 
@@ -124,5 +153,70 @@ public class ReceiveMain : MonoBehaviour
         framesReceived = 0;
     }
 
+    void RunTestCycle(){
+        testCycleRunning = true;
+        StartCoroutine(testCycle());
+
+    }
+
+    IEnumerator testCycle(){
+
+        receiveColor32Array = new Color32[texWidth * texHeight];
+        receiveColorArray = new Color[texWidth * texHeight];
+
+        int FLASH_COUNT = 6;
+        bool flashOn = false;
+        for (int i=0; i < FLASH_COUNT; i++){
+            for (int idx=0; idx < receiveColorArray.Length; idx++){
+                receiveColor32Array[idx] = flashOn ? new Color32(255,255,255,255) : new Color32(0,0,0,0);
+                receiveColorArray[idx] = flashOn ? new Color(1.0f, 1.0f, 1.0f, 1.0f) : new Color(0.0f, 0.0f, 0.0f, 1.0f);
+            }
+            receivedNewFrame = true;
+            yield return new WaitForSeconds(testCycleSpeed);
+            flashOn = !flashOn;
+        }
+
+        receiveColor32Array = new Color32[texWidth * texHeight];
+        receiveColorArray = new Color[texWidth * texHeight];
+
+        int index = receiveColor32Array.Length-1;
+
+        for (int y=0; y < texHeight; y++){
+            for (int x=0; x < texWidth; x++){
+
+                
+                
+                receiveColor32Array[index] = new Color32(255,255,255,255);
+                receiveColorArray[index] = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+               
+                index--;
+
+                receivedNewFrame = true;
+
+                yield return new WaitForSeconds(testCycleSpeed);
+            }
+        }
+
+        index=receiveColor32Array.Length-1;
+        for (int y=0; y < texHeight; y++){
+            for (int x=0; x < texWidth; x++){
+                
+                receiveColor32Array[index] = new Color32(0,0,0,0);
+                receiveColorArray[index] = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+                
+                index--;
+
+                receivedNewFrame = true;
+
+                yield return new WaitForSeconds(testCycleSpeed);
+            }
+        }
+
+
+
+
+        testCycleRunning = false;
+
+    }
 
 }

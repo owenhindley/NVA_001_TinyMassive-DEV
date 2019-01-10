@@ -106,9 +106,9 @@ public class ArtnetTransmit : MonoBehaviour
         // write array
         for (int i=0; i < arr.Length; i++){
             var f = fixtures[i];
-            interfaceList[(int)f.universe].packet.setChannel((ushort)f.address, arr[i].r);
-            interfaceList[(int)f.universe].packet.setChannel((ushort)(f.address+1), arr[i].g);
-            interfaceList[(int)f.universe].packet.setChannel((ushort)(f.address+2), arr[i].b);
+            interfaceList[(int)f.universe-1].packet.setChannel((ushort)f.address, arr[i].r);
+            interfaceList[(int)f.universe-1].packet.setChannel((ushort)(f.address+1), arr[i].g);
+            interfaceList[(int)f.universe-1].packet.setChannel((ushort)(f.address+2), arr[i].b);
         }
 
         // queue packets

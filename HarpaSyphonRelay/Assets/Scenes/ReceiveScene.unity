@@ -2877,9 +2877,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interfaceList:
-  - IP: 127.0.0.1
+  - IP: 2.0.0.0
     universe: 0
-  - IP: 127.0.0.1
+  - IP: 2.0.0.0
     universe: 0
   enableSending: 1
   HasError: 0
@@ -3135,8 +3135,8 @@ MonoBehaviour:
     port: 1337
     defaultFrameRate: 30
     patchFilename: combined-patch.csv
-    interfaceA_IP: 127.0.0.1
-    interfaceB_IP: 127.0.0.1
+    interfaceA_IP: 2.0.0.21
+    interfaceB_IP: 2.0.0.21
   EditorDoConfigOverride: 1
   doCreateConfigFile: 0
 --- !u!4 &1263524927
@@ -3518,11 +3518,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00bc06b3c2eb4a4d9c3a3e7fe528f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  artnet: {fileID: 526794542}
   frameRate: 30
   framesReceived: 0
   showUI: 1
+  testCycleRunning: 0
   receiveTex: {fileID: 0}
+  croppedRT: {fileID: 8400000, guid: cfc476f415db243e48c11955da167b5f, type: 2}
   receiveMaterial: {fileID: 2100000, guid: 5157f167a86cf41a289350af156d28ba, type: 2}
   receiveColor32Array: []
   receiveColorArray: []
   harpaModel: {fileID: 0}
+  doTestCycle: 0
