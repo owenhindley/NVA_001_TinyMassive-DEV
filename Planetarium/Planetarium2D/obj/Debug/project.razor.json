@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "e:\\PROJECTS\\NVA_001_TinyMassive-DEV\\Planetarium\\Planetarium2D\\Assembly-CSharp.csproj",
+  "TargetFramework": "v4.5",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}
