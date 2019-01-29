@@ -31,7 +31,7 @@ public class Constellation : MonoBehaviour
             starTransforms.Add(stars[i].gameObject);
             var t = stars[i].gameObject.GetComponents<Transition>();
             for (int j=0; j < t.Length; j++){
-                if (t[j].direction == Transition.TransitionDirection.In){
+                if (t[j] is TransitionIn) {
                     transitionsIn.Add(t[j]);
                 } else {
                     transitionsOut.Add(t[j]);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ScaleIn : Transition
+public class ScaleIn : TransitionIn
 {
     private Vector3 startingScale;
     public override void DoSetup(){

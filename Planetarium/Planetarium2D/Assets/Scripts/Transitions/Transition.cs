@@ -5,16 +5,8 @@ using DG.Tweening;
 
 public class Transition : MonoBehaviour
 {
-    public enum TransitionDirection{
-        In,
-        Out
-    }
-
     [InspectorButton("DoTransition")] public bool doDoTransition;
 
-    public TransitionDirection direction {
-        get { return TransitionDirection.In; }
-    }
 
     void Start(){
         DoSetup();
@@ -28,4 +20,12 @@ public class Transition : MonoBehaviour
     public virtual void DoTransition(){
     }
 
+}
+
+public class TransitionIn : Transition{
+
+}
+
+public class TransitionOut : Transition{
+    
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class StarCollisionIn : Transition
+public class StarCollisionIn : TransitionIn
 {
     public GameObject sourceStar;
     public int numSourceStars;
