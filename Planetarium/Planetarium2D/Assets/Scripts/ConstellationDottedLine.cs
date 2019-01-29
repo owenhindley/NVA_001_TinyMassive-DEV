@@ -44,10 +44,10 @@ public class ConstellationDottedLine : MonoBehaviour
             start = pointList[i];
             end = pointList[i+1];
 
-            Debug.Log("Distance : " + Vector3.Distance(start, end));
+            // Debug.Log("Distance : " + Vector3.Distance(start, end));
 
             float numDots = Mathf.Floor(Vector3.Distance(start, end) * dotsPerUnit);
-            Debug.Log("Drawing " + numDots + " dots between " + i + " and " + (i+1));
+            // Debug.Log("Drawing " + numDots + " dots between " + i + " and " + (i+1));
             for (int j=0; j < numDots; j++){
                 Vector3 pos = Vector3.Lerp(start, end, (float)j/numDots);
                 pos = new Vector3(pos.x, pos.y, transform.position.z);
