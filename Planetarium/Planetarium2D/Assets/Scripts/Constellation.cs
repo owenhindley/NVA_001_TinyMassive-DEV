@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Constellation : MonoBehaviour
 {
 
@@ -15,10 +16,12 @@ public class Constellation : MonoBehaviour
     [InspectorButton("TransitionIn")] public bool doTransitionIn;
     [InspectorButton("TransitionOut")] public bool doTransitionOut;
     
+    public ConstellationLine line;
 
     void Start()
     {
         GetStars();
+        line.lineWidth = 0.0f;
     }
 
     void GetStars(){
@@ -49,6 +52,7 @@ public class Constellation : MonoBehaviour
             transitionsIn[i].DoTransition();
             yield return new WaitForSeconds(StarsInTime / (float)transitionsIn.Count);
         }
+        line.TransitionIn();
     }
 
     public void TransitionOut(){
@@ -56,6 +60,8 @@ public class Constellation : MonoBehaviour
     }
 
     IEnumerator OutRoutine(){
+        line.TransitionOut();
+        yield return new WaitForSeconds(1.0f);
         for (int i=0; i < transitionsOut.Count; i++){
             transitionsOut[i].DoTransition();
             yield return new WaitForSeconds(StarsOutTime / (float)transitionsOut.Count);
