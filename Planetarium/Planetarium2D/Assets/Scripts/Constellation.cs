@@ -16,12 +16,13 @@ public class Constellation : MonoBehaviour
     [InspectorButton("TransitionIn")] public bool doTransitionIn;
     [InspectorButton("TransitionOut")] public bool doTransitionOut;
     
-    public ConstellationLine line;
+    // public ConstellationLine line;
+    public ConstellationDottedLine line;
 
     void Start()
     {
         GetStars();
-        line.lineWidth = 0.0f;
+        // line.lineWidth = 0.0f;
     }
 
     void GetStars(){
@@ -52,6 +53,7 @@ public class Constellation : MonoBehaviour
             transitionsIn[i].DoTransition();
             yield return new WaitForSeconds(StarsInTime / (float)transitionsIn.Count);
         }
+        yield return new WaitForSeconds(1.0f);
         line.TransitionIn();
     }
 
@@ -61,7 +63,7 @@ public class Constellation : MonoBehaviour
 
     IEnumerator OutRoutine(){
         line.TransitionOut();
-        yield return new WaitForSeconds(1.0f);
+        // yield return new WaitForSeconds(1.0f);
         for (int i=0; i < transitionsOut.Count; i++){
             transitionsOut[i].DoTransition();
             yield return new WaitForSeconds(StarsOutTime / (float)transitionsOut.Count);

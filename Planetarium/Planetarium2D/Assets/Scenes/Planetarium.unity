@@ -239,6 +239,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doDoTransition: 0
+--- !u!1 &444113953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 444113954}
+  - component: {fileID: 444113955}
+  m_Layer: 0
+  m_Name: LineDots
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &444113954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444113953}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1338894676}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &444113955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444113953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8e1734e9b39a7f4f95eacdacb6150fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dotPrefab: {fileID: 6932849771520104967, guid: f20a534f0abd49849954afce99a697ab,
+    type: 3}
+  points:
+  - {fileID: 802770016}
+  - {fileID: 37013388}
+  - {fileID: 981870563}
+  - {fileID: 532982661}
+  - {fileID: 802509945}
+  - {fileID: 526552019}
+  - {fileID: 1759082562}
+  - {fileID: 532982661}
+  dotsPerUnit: 0.5
+  dotTimeInterval: 0.005
+  doDrawDots: 0
 --- !u!1 &526552017 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6932849771520104967, guid: 3b81c7c0bcb674547bc61d10dc889319,
@@ -449,7 +506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &645630446
 Transform:
   m_ObjectHideFlags: 0
@@ -936,6 +993,7 @@ Transform:
   - {fileID: 37013388}
   - {fileID: 1759082562}
   - {fileID: 802770016}
+  - {fileID: 444113954}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -959,7 +1017,7 @@ MonoBehaviour:
   doGetStars: 0
   doTransitionIn: 0
   doTransitionOut: 0
-  line: {fileID: 645630447}
+  line: {fileID: 444113955}
 --- !u!1001 &1759082561
 PrefabInstance:
   m_ObjectHideFlags: 0
