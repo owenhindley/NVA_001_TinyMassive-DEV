@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 
 public class Constellation : MonoBehaviour
 {
@@ -18,6 +18,9 @@ public class Constellation : MonoBehaviour
     
     // public ConstellationLine line;
     public List<ConstellationDottedLine> lines;
+
+    public Vector3 scrollEndPosition = Vector3.zero;
+    public float scrollTime = 4.0f;
 
     void Start()
     {
@@ -57,6 +60,11 @@ public class Constellation : MonoBehaviour
         lines.ForEach((ConstellationDottedLine l)=>{
             l.TransitionIn();
         });
+
+        // yield return new WaitForSeconds(1.0f);
+        if (scrollEndPosition.sqrMagnitude > 0.0f){
+            transform.DOLocalMove(transform.localPosition + scrollEndPosition, scrollTime).SetEase(Ease.InOutFlash).SetLoops(2, LoopType.Yoyo);
+        }
     }
 
     public void TransitionOut(){
