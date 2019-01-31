@@ -20,6 +20,7 @@ public class Constellation : MonoBehaviour
     public List<ConstellationDottedLine> lines;
 
     public Vector3 scrollEndPosition = Vector3.zero;
+    
     public float scrollTime = 4.0f;
 
     void Start()
@@ -76,10 +77,23 @@ public class Constellation : MonoBehaviour
             l.TransitionOut();
         });
         // yield return new WaitForSeconds(1.0f);
+        // for (int i=0; i < transitionsOut.Count; i++){
+        //     transitionsOut[i].DoTransition();
+        //     yield return new WaitForSeconds(StarsOutTime / (float)transitionsOut.Count);
+        // }
+
+        // transform.DOBlendableMoveBy(Vector3.right * 77.0f, 2.0f, true).SetEase(Ease.InFlash);
+        transform.DOBlendableScaleBy(Vector3.one * 2.0f, 2.0f).SetEase(Ease.InOutFlash);
+        
+        yield return new WaitForSeconds(1.0f);
+
         for (int i=0; i < transitionsOut.Count; i++){
             transitionsOut[i].DoTransition();
             yield return new WaitForSeconds(StarsOutTime / (float)transitionsOut.Count);
         }
+        
+        yield return null;
+
     }
 
     void Update()
