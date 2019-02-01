@@ -4,9 +4,23 @@ using UnityEngine;
 
 public class ConstellationSequence : MonoBehaviour
 {
+    public enum Language{
+        EN,
+        IS
+    }
+
+    public Language language;
+
+
     public List<Constellation> ConstList;
 
-    public float waitTime = 1.0f;
+    public TextScroller textScroller;
+
+    
+
+    public float postTextWaitTime = 1.0f;
+    public float preTextWaitTime = 2.0f;
+    public float waitBetweenConstellations = 2.0f;
 
     [InspectorButton("RunSequence")] public bool DoRunSequence;
 
@@ -27,10 +41,18 @@ public class ConstellationSequence : MonoBehaviour
 
             var c = ConstList[i];
 
-            c.TransitionIn();
-            yield return new WaitForSeconds(c.StarsInTime + 1.0f + (c.scrollEndPosition.magnitude > 0 ? c.scrollTime * 2.0f : 1.0f) + waitTime);
-            c.TransitionOut();
-            yield return new WaitForSeconds(c.StarsOutTime + 1.0f + waitTime);
+            yield return c.InRoutine();
+
+            yield return new WaitForSeconds(preTextWaitTime);
+
+            textScroller.ShowText(language == Language.EN ? c.titleEN : c.titleIS.ToUpper());
+
+            yield return new WaitForSeconds(c.StarsInTime + postTextWaitTime);
+            
+            yield return c.OutRoutine();
+
+            yield return new WaitForSeconds(waitBetweenConstellations);
+            
         }
 
 

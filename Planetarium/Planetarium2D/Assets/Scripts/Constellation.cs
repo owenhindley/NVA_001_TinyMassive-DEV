@@ -19,13 +19,14 @@ public class Constellation : MonoBehaviour
     // public ConstellationLine line;
     public List<ConstellationDottedLine> lines;
 
-    public TextScroller textScroller;
+   
 
     public Vector3 scrollEndPosition = Vector3.zero;
     
     public float scrollTime = 4.0f;
 
-    public string title = "Constellation";
+    public string titleEN = "Constellation";
+    public string titleIS = "Constellation";
 
     void Start()
     {
@@ -56,7 +57,7 @@ public class Constellation : MonoBehaviour
         StartCoroutine(InRoutine());
     }
 
-    IEnumerator InRoutine(){
+    public IEnumerator InRoutine(){
         for (int i=0; i < transitionsIn.Count; i++){
             transitionsIn[i].DoTransition();
             yield return new WaitForSeconds(StarsInTime / (float)transitionsIn.Count);
@@ -71,36 +72,41 @@ public class Constellation : MonoBehaviour
         // yield return new WaitForSeconds(1.0f);
         if (scrollEndPosition.sqrMagnitude > 0.0f){
             transform.DOLocalMove(transform.localPosition + scrollEndPosition, scrollTime).SetEase(Ease.InOutFlash).SetLoops(2, LoopType.Yoyo);
+            yield return new WaitForSeconds(scrollTime * 2.0f);
         }
 
-        yield return textScroller.ShowText(title);
+        
+
     }
 
     public void TransitionOut(){
         StartCoroutine(OutRoutine());
     }
 
-    IEnumerator OutRoutine(){
-        lines.ForEach((ConstellationDottedLine l)=>{
-            l.TransitionOut();
-        });
-        // yield return new WaitForSeconds(1.0f);
-        // for (int i=0; i < transitionsOut.Count; i++){
-        //     transitionsOut[i].DoTransition();
-        //     yield return new WaitForSeconds(StarsOutTime / (float)transitionsOut.Count);
-        // }
-
-        yield return new WaitForSeconds(1.0f);
-
+    public IEnumerator OutRoutine(){
+        
         // transform.DOBlendableMoveBy(Vector3.right * 77.0f, 2.0f, true).SetEase(Ease.InFlash);
-        transform.DOBlendableScaleBy(Vector3.one * 4.0f, 4.0f).SetEase(Ease.InOutFlash);
+        
+        if (Random.value > 0.5){
+            transform.DOBlendableScaleBy(Vector3.one * 4.0f, 4.0f).SetEase(Ease.InOutFlash);
+        } else {
+            transform.DOScale(Vector3.zero * 4.0f, 4.0f).SetEase(Ease.InOutFlash);
+        }
+        
         
         yield return new WaitForSeconds(1.0f);
+
 
         for (int i=0; i < transitionsOut.Count; i++){
             transitionsOut[i].DoTransition();
             // yield return new WaitForSeconds(StarsOutTime / (float)transitionsOut.Count);
         }
+
+        yield return new WaitForSeconds(1.0f);
+
+        lines.ForEach((ConstellationDottedLine l)=>{
+            l.TransitionOut();
+        });
         
         yield return null;
 

@@ -17,12 +17,12 @@ public class TextScroller : MonoBehaviour
         TextStartingLocalPosition = Text.transform.localPosition;
     }
 
-    public IEnumerator ShowText(string text){
+    public void ShowText(string text){
         Text.transform.DOKill();
         Text.transform.localPosition = TextStartingLocalPosition;
         Text.SetText(text);
         Text.transform.DOLocalMove(TextStartingLocalPosition + (Vector3.right * Text.margin.z * 2.0f), scrollTime, false).SetEase(Ease.Linear);
-        yield return new WaitForSeconds(scrollTime);
+        
     }
 
     // Update is called once per frame
