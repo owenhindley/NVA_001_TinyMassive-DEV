@@ -28,7 +28,7 @@ public class ConstellationSequence : MonoBehaviour
             var c = ConstList[i];
 
             c.TransitionIn();
-            yield return new WaitForSeconds(c.StarsInTime + 1.0f + (c.scrollTime * 2.0f) + waitTime);
+            yield return new WaitForSeconds(c.StarsInTime + 1.0f + (c.scrollEndPosition.magnitude > 0 ? c.scrollTime * 2.0f : 1.0f) + waitTime);
             c.TransitionOut();
             yield return new WaitForSeconds(c.StarsOutTime + 1.0f + waitTime);
         }

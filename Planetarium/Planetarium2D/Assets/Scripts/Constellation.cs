@@ -82,14 +82,16 @@ public class Constellation : MonoBehaviour
         //     yield return new WaitForSeconds(StarsOutTime / (float)transitionsOut.Count);
         // }
 
+        yield return new WaitForSeconds(1.0f);
+
         // transform.DOBlendableMoveBy(Vector3.right * 77.0f, 2.0f, true).SetEase(Ease.InFlash);
-        transform.DOBlendableScaleBy(Vector3.one * 2.0f, 2.0f).SetEase(Ease.InOutFlash);
+        transform.DOBlendableScaleBy(Vector3.one * 4.0f, 4.0f).SetEase(Ease.InOutFlash);
         
         yield return new WaitForSeconds(1.0f);
 
         for (int i=0; i < transitionsOut.Count; i++){
             transitionsOut[i].DoTransition();
-            yield return new WaitForSeconds(StarsOutTime / (float)transitionsOut.Count);
+            // yield return new WaitForSeconds(StarsOutTime / (float)transitionsOut.Count);
         }
         
         yield return null;
