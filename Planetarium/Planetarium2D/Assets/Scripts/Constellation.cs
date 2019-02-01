@@ -19,9 +19,13 @@ public class Constellation : MonoBehaviour
     // public ConstellationLine line;
     public List<ConstellationDottedLine> lines;
 
+    public TextScroller textScroller;
+
     public Vector3 scrollEndPosition = Vector3.zero;
     
     public float scrollTime = 4.0f;
+
+    public string title = "Constellation";
 
     void Start()
     {
@@ -62,10 +66,14 @@ public class Constellation : MonoBehaviour
             l.TransitionIn();
         });
 
+        yield return new WaitForSeconds(1.0f);
+
         // yield return new WaitForSeconds(1.0f);
         if (scrollEndPosition.sqrMagnitude > 0.0f){
             transform.DOLocalMove(transform.localPosition + scrollEndPosition, scrollTime).SetEase(Ease.InOutFlash).SetLoops(2, LoopType.Yoyo);
         }
+
+        yield return textScroller.ShowText(title);
     }
 
     public void TransitionOut(){

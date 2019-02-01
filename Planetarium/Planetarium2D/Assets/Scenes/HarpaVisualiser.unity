@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37312013, g: 0.3807403, b: 0.35872707, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -112,7 +112,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!21 &441386006
+--- !u!21 &380863154
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -260,7 +260,7 @@ MonoBehaviour:
   yOffset: 0
   frameRate: 30
   networkSendEnabled: 0
-  croppedOutputMaterial: {fileID: 441386006}
+  croppedOutputMaterial: {fileID: 380863154}
   cropShader: {fileID: 4800000, guid: e20818dc35ee24ec8a903b3aece504dd, type: 3}
   debugNSourceTexX: 0
   debugNSourceTexY: 0
