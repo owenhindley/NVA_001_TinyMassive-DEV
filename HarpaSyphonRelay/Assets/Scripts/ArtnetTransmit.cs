@@ -37,6 +37,8 @@ public class ArtnetTransmit : MonoBehaviour
 
     public bool HasError = false;
 
+    private bool hasInitialised = false;
+
     private Thread worker;
     public FixtureAddress[] fixtures;
 
@@ -71,7 +73,7 @@ public class ArtnetTransmit : MonoBehaviour
         for (int i=0; i < NUM_UNIVERSES; i++){
             interfaceList[i] = new ArtNetInterface();
             interfaceList[i].universe = (byte)i;
-            interfaceList[i].IP = (i <= 4)? TMConfig.Current.interfaceA_IP : TMConfig.Current.interfaceB_IP;    // bit of magic happening here, we have 2 boxes, one for universes 0-1, and another 2-5
+            interfaceList[i].IP = TMConfig.Current.artnet_IP;
             interfaceList[i].packet = new ArtnetDmx((byte)i);
             interfaceList[i].artnetQueue = new ConcurrentQueue<byte[]>();
             interfaceList[i].endPoint = new IPEndPoint(IPAddress.Parse(interfaceList[i].IP), 6454);
@@ -87,6 +89,7 @@ public class ArtnetTransmit : MonoBehaviour
             Debug.LogError("ERROR : Incorrect number of interfaces");
         }
 
+        hasInitialised = true;
     }
 
     public FixtureAddress[] parseCSV(string text){
@@ -105,6 +108,9 @@ public class ArtnetTransmit : MonoBehaviour
     }
 
     public void RenderColor32Array(Color32[] arr){
+        
+
+        if (!hasInitialised) { return; }
 
         // reset packets
         for (int i=0; i < NUM_UNIVERSES; i++){
@@ -114,10 +120,12 @@ public class ArtnetTransmit : MonoBehaviour
         // write array
         for (int i=0; i < arr.Length; i++){
             var f = fixtures[i];
-            // adjust by 1 because.. I don't know
+
+                // adjust by 1 because.. I don't know
             interfaceList[(int)f.universe-1].packet.setChannel((ushort)(f.address-1), arr[i].r);
             interfaceList[(int)f.universe-1].packet.setChannel((ushort)(f.address+1-1), arr[i].g);
             interfaceList[(int)f.universe-1].packet.setChannel((ushort)(f.address+2-1), arr[i].b);
+           
         }
 
         // queue packets

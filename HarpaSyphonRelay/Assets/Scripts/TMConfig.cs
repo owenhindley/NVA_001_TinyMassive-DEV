@@ -21,8 +21,9 @@ public static class TMConfig {
             public string port;
             public int defaultFrameRate;
 			public string patchFilename;
-			public string interfaceA_IP;
-			public string interfaceB_IP;
+			public string artnet_IP;
+			public bool enableTimeout;
+			public int idleTimeout;
         }
 
 		

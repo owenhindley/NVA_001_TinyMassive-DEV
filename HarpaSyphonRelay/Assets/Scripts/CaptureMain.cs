@@ -14,6 +14,7 @@ public class CaptureMain : MonoBehaviour {
 
 	public RenderTexture sourceTexture;
 	public RenderTexture targetTexture;
+	private float targetAspectRatio = 0.5f;
 
 	[Range(0.0f, 1.0f)]
 	public float Width = 1.0f;
@@ -44,7 +45,6 @@ public class CaptureMain : MonoBehaviour {
 	public string renderServerIP = "127.0.0.1";
 	public string renderServerPort = "1337";
 
-	public PostProcessingBehaviour mainPPB;
 
 	public GameObject harpaModel;
 	
@@ -56,6 +56,7 @@ public class CaptureMain : MonoBehaviour {
 
 		Application.targetFrameRate = frameRate;
 		croppedOutputMaterial = new Material(cropShader);
+		targetAspectRatio = (float)targetTexture.width / (float)targetTexture.height;
 		yield return new WaitForSeconds(1.0f);
 		UpdateSettings();
 	}
@@ -74,13 +75,6 @@ public class CaptureMain : MonoBehaviour {
 				}
 				
 			});
-
-			if (mainPPB != null){
-				GUITools.Button(ref pos, "Toggle Post Processing", ()=>{
-					mainPPB.enabled = !mainPPB.enabled;
-
-				});
-			}
 
 			GUITools.Button(ref pos, networkSendEnabled ? "Disable Network Send" : "Enable Network Send", ()=>{
 				if (networkSendEnabled){
@@ -155,6 +149,15 @@ public class CaptureMain : MonoBehaviour {
 	}
 	
 	void LateUpdate () {
+
+		if (syphonClient.receivedTexture != null){
+			float receivedAspectRatio = (float)syphonClient.receivedTexture.width / (float)syphonClient.receivedTexture.height;
+			if (receivedAspectRatio != (Width/Height)){
+				// TODO - fix this
+				// Height = 
+			}
+		}
+		
 
 		croppedOutputMaterial.SetFloat("nSourceTexX", 0.0f);
 		debugNSourceTexY = ((float)yOffset / sourceTexture.height);

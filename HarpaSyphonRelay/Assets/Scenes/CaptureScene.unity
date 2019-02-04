@@ -246,7 +246,7 @@ MonoBehaviour:
   yOffset: 0
   frameRate: 30
   networkSendEnabled: 0
-  croppedOutputMaterial: {fileID: 1651015276}
+  croppedOutputMaterial: {fileID: 1305308286}
   cropShader: {fileID: 4800000, guid: e20818dc35ee24ec8a903b3aece504dd, type: 3}
   syphonClient: {fileID: 1074561806}
   sender: {fileID: 378282625}
@@ -258,7 +258,7 @@ MonoBehaviour:
   syphonAppList: []
   renderServerIP: 127.0.0.1
   renderServerPort: 1337
-  harpaModel: {fileID: 0}
+  harpaModel: {fileID: 1371833992}
 --- !u!4 &378282624
 Transform:
   m_ObjectHideFlags: 0
@@ -693,6 +693,31 @@ Transform:
   m_Father: {fileID: 378282624}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
+--- !u!21 &1305308286
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Unlit/CropSourceTexture
+  m_Shader: {fileID: 4800000, guid: e20818dc35ee24ec8a903b3aece504dd, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors: []
 --- !u!1001 &1371833991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3285,6 +3310,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ac00311dd63b41089d3d28aba029258, type: 3}
+--- !u!1 &1371833992 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1343072724622264, guid: 2ac00311dd63b41089d3d28aba029258,
+    type: 3}
+  m_PrefabInstance: {fileID: 1371833991}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1579581941
 GameObject:
   m_ObjectHideFlags: 0
@@ -3321,8 +3352,9 @@ MonoBehaviour:
     port: 1337
     defaultFrameRate: 30
     patchFilename: combined-patch.csv
-    interfaceA_IP: 127.0.0.1
-    interfaceB_IP: 127.0.0.1
+    artnet_IP: 127.0.0.1
+    enableTimeout: 0
+    idleTimeout: 0
   EditorDoConfigOverride: 1
   doCreateConfigFile: 0
 --- !u!4 &1579581943
@@ -3339,31 +3371,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1651015276
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Unlit/CropSourceTexture
-  m_Shader: {fileID: 4800000, guid: e20818dc35ee24ec8a903b3aece504dd, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats: []
-    m_Colors: []
 --- !u!1 &1807730418
 GameObject:
   m_ObjectHideFlags: 0

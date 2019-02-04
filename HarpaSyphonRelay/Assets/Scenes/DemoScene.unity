@@ -112,31 +112,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!21 &59286028
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Unlit/CropSourceTexture
-  m_Shader: {fileID: 4800000, guid: e20818dc35ee24ec8a903b3aece504dd, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats: []
-    m_Colors: []
 --- !u!1 &59394505
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +124,6 @@ GameObject:
   - component: {fileID: 59394508}
   - component: {fileID: 59394507}
   - component: {fileID: 59394506}
-  - component: {fileID: 59394510}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -235,19 +209,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &59394510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59394505}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 20c932d9d927945a9b422c058cc9ad55, type: 2}
 --- !u!1 &378282622
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +246,7 @@ MonoBehaviour:
   yOffset: 0
   frameRate: 30
   networkSendEnabled: 0
-  croppedOutputMaterial: {fileID: 59286028}
+  croppedOutputMaterial: {fileID: 1154711674}
   cropShader: {fileID: 4800000, guid: e20818dc35ee24ec8a903b3aece504dd, type: 3}
   syphonClient: {fileID: 1074561806}
   sender: {fileID: 378282625}
@@ -297,7 +258,7 @@ MonoBehaviour:
   syphonAppList: []
   renderServerIP: 127.0.0.1
   renderServerPort: 1337
-  mainPPB: {fileID: 59394510}
+  mainPPB: {fileID: 0}
   harpaModel: {fileID: 1371833992}
 --- !u!4 &378282624
 Transform:
@@ -1041,6 +1002,31 @@ Transform:
   m_Father: {fileID: 378282624}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
+--- !u!21 &1154711674
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Unlit/CropSourceTexture
+  m_Shader: {fileID: 4800000, guid: e20818dc35ee24ec8a903b3aece504dd, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors: []
 --- !u!1 &1171002547
 GameObject:
   m_ObjectHideFlags: 0

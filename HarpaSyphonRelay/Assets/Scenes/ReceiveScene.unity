@@ -2889,7 +2889,11 @@ MonoBehaviour:
   packetsSent: 0
   dummyChannel: 40
   dummyValue: 255
+  debugPixelX: 39
+  debugPixelY: 12
+  debugPixelFlashBrightness: 255
   doSendDummyData: 0
+  doFlashDebugPixel: 0
 --- !u!4 &526794543
 Transform:
   m_ObjectHideFlags: 0
@@ -3139,6 +3143,8 @@ MonoBehaviour:
     patchFilename: combined-patch.csv
     interfaceA_IP: 2.255.255.255
     interfaceB_IP: 2.255.255.255
+    enableTimeout: 1
+    idleTimeout: 3
   EditorDoConfigOverride: 1
   doCreateConfigFile: 0
 --- !u!4 &1263524927
@@ -3315,6 +3321,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686449595}
   m_CullTransparentMesh: 0
+--- !u!1 &1800553883 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1343072724622264, guid: 2ac00311dd63b41089d3d28aba029258,
+    type: 3}
+  m_PrefabInstance: {fileID: 186407335}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1814950658
 GameObject:
   m_ObjectHideFlags: 0
@@ -3485,6 +3497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2102996069}
   - component: {fileID: 2102996070}
+  - component: {fileID: 2102996071}
   m_Layer: 0
   m_Name: Main
   m_TagString: Untagged
@@ -3530,5 +3543,24 @@ MonoBehaviour:
   receiveMaterial: {fileID: 2100000, guid: 5157f167a86cf41a289350af156d28ba, type: 2}
   receiveColor32Array: []
   receiveColorArray: []
-  harpaModel: {fileID: 0}
+  harpaModel: {fileID: 1800553883}
+  screensaver: {fileID: 2102996071}
   doTestCycle: 0
+--- !u!114 &2102996071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102996068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2144b4bf320e8499da17d1e6222931cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleMaterial: {fileID: 2100000, guid: 8429d49ff0f6c438ebc629d90de61ca1, type: 2}
+  target: {fileID: 8400000, guid: cfc476f415db243e48c11955da167b5f, type: 2}
+  sourceTexture: {fileID: 2800000, guid: f63aa9f7e360a40e781169bdbce86b24, type: 3}
+  isRendering: 0
+  doShowIdle: 0
+  doEndIdle: 0

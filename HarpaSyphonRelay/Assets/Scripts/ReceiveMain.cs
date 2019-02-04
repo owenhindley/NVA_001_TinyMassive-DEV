@@ -22,6 +22,8 @@ public class ReceiveMain : MonoBehaviour
     public const int texWidth = 77;
     public const int texHeight = 13;
 
+    private float timeLastFrame = -1.0f;
+
     private float testCycleSpeed = 0.01f;
 
     public bool testCycleRunning = false;
@@ -33,6 +35,7 @@ public class ReceiveMain : MonoBehaviour
     public Color[] receiveColorArray = new Color[0];
 
     public GameObject harpaModel;
+    public IdleScreensaver screensaver;
 
     [InspectorButton("RunTestCycle")] public bool doTestCycle;
 
@@ -100,8 +103,8 @@ public class ReceiveMain : MonoBehaviour
         receiver = new SocketReceiver(TMConfig.Current.port);
         receiver.OnBytes += OnBytes;
 
-        receiveColor32Array = new Color32[texWidth * texHeight * 3];
-        receiveColorArray = new Color[texWidth * texHeight * 3];
+        receiveColor32Array = new Color32[texWidth * texHeight];
+        receiveColorArray = new Color[texWidth * texHeight];
        
 
         receiveTex = new Texture2D(texWidth, texHeight, TextureFormat.RGB24, false, true);
@@ -115,6 +118,11 @@ public class ReceiveMain : MonoBehaviour
     void Update()
     {
         if (receivedNewFrame){
+            if (screensaver.isRendering){
+                screensaver.EndIdle();
+            }
+
+            timeLastFrame = Time.realtimeSinceStartup;
             receiveTex.SetPixels(receiveColorArray, 0);
             receiveTex.Apply();
             framesReceived++;
@@ -126,6 +134,13 @@ public class ReceiveMain : MonoBehaviour
 
             artnet.RenderColor32Array(receiveColor32Array);
         }
+
+        if (TMConfig.Current.enableTimeout && !screensaver.isRendering){
+            if (Time.realtimeSinceStartup - timeLastFrame > TMConfig.Current.idleTimeout){
+                screensaver.ShowIdle();
+            }
+        }
+        
     }
 
     void OnBytes(byte[] bytes){
