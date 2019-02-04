@@ -48,14 +48,14 @@ namespace artnet {
       }
 
       public void setChannel(ushort channel, byte val) {
-          Debug.Assert(channel < 512);
+        //   Debug.Assert(channel < 512);
           fixed(byte* p = this.data) {
               p[channel] = val;
           }
       }
 
       public byte getChannel(ushort channel) {
-          Debug.Assert(channel < 512);
+        //   Debug.Assert(channel < 512);
           fixed(byte* p = this.data) {
               return p[channel];
           }

@@ -92,6 +92,7 @@ public class CaptureMain : MonoBehaviour {
 					sender.enabled = false;
 				} else {
 					sender.enabled = true;
+					sender.Init(renderServerIP, renderServerPort);
 				}
 
 				networkSendEnabled = !networkSendEnabled;

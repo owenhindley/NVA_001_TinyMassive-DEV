@@ -154,7 +154,7 @@ public class ReceiveMain : MonoBehaviour
             receivedNewFrame = false;
 
 
-            // artnet.RenderColor32Array(receiveColor32Array);
+            artnet.RenderColor32Array(receiveColor32Array);
         }
         
     }

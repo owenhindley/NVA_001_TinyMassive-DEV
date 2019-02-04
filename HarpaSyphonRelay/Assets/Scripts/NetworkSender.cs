@@ -43,15 +43,29 @@ public class NetworkSender : MonoBehaviour
     void Start()
     {
 
-        ip = TMConfig.Current.receiverIP;
-        port = TMConfig.Current.port;
 
         sourceTex = new Texture2D(rt.width, rt.height, TextureFormat.RGB24, false, true);
         int byteBufferSize = rt.width * rt.height * 3 * CHANNEL_SIZE_BYTES;
         msgBuffer = new byte[byteBufferSize];
 
-        senderWorker = new Thread(SocketThreadLoop);
-        senderWorker.Start();
+       
+    }
+
+    public void Init(string _ip, string _port){
+
+        ip = _ip;
+        port = _port;
+
+        if (senderWorker != null){
+            senderWorker = new Thread(SocketThreadLoop);
+            senderWorker.Start();
+        } else {
+            senderCancelled = true;
+            senderWorker = new Thread(SocketThreadLoop);
+            senderWorker.Start();
+        }
+
+       
     }
 
     void SocketThreadLoop(){
