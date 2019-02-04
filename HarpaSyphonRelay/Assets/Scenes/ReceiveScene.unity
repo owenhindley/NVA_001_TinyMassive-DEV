@@ -3141,8 +3141,7 @@ MonoBehaviour:
     port: 1337
     defaultFrameRate: 30
     patchFilename: combined-patch.csv
-    interfaceA_IP: 2.255.255.255
-    interfaceB_IP: 2.255.255.255
+    artnet_IP: 127.0.0.1
     enableTimeout: 1
     idleTimeout: 3
   EditorDoConfigOverride: 1
