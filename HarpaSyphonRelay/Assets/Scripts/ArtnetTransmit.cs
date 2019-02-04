@@ -14,7 +14,7 @@ public class ArtnetTransmit : MonoBehaviour
     public struct FixtureAddress{
         public byte universe;
         public int address;
-        public FixtureAddress(byte _uni, byte _add){
+        public FixtureAddress(byte _uni, int _add){
             universe = _uni;
             address = _add;
         }
@@ -72,7 +72,7 @@ public class ArtnetTransmit : MonoBehaviour
         
         for (int i=0; i < NUM_UNIVERSES; i++){
             interfaceList[i] = new ArtNetInterface();
-            interfaceList[i].universe = (byte)i;
+            interfaceList[i].universe = (byte)(i);
             interfaceList[i].IP = TMConfig.Current.artnet_IP;
             interfaceList[i].packet = new ArtnetDmx((byte)i);
             interfaceList[i].artnetQueue = new ConcurrentQueue<byte[]>();
@@ -101,7 +101,7 @@ public class ArtnetTransmit : MonoBehaviour
                 var patch = cols[j].Split(':');
                 var uni = int.Parse(patch[0]);
                 var addr = int.Parse(patch[1]);
-                list.Add(new FixtureAddress((byte)uni, (byte)addr));
+                list.Add(new FixtureAddress((byte)uni, (int)addr));
             }
         }
         return list.ToArray();
@@ -113,9 +113,9 @@ public class ArtnetTransmit : MonoBehaviour
         if (!hasInitialised) { return; }
 
         // reset packets
-        for (int i=0; i < NUM_UNIVERSES; i++){
-            interfaceList[i].packet = new ArtnetDmx((byte)i);
-        }
+        // for (int i=0; i < NUM_UNIVERSES; i++){
+        //     interfaceList[i].packet = new ArtnetDmx((byte)i);
+        // }
 
         // write array
         for (int i=0; i < arr.Length; i++){
