@@ -38,17 +38,17 @@ public class IdleScreensaver : MonoBehaviour
     }
 
     public void EndIdle(){
-        isRendering = false;
-        idleMaterial.SetFloat("_MasterOpacity", 0.0f);
-        // if (isRendering){
-        //     if (opacityTween != null){ opacityTween.Kill(); }
-        //     opacityTween = DOVirtual.Float(1.0f,0.0f, 3.0f, (float val)=>{
-        //         idleMaterial.SetFloat("_MasterOpacity", val);
-        //     }).OnComplete(()=>{
-        //         isRendering = false;
-        //     });
+        // isRendering = false;
+        // idleMaterial.SetFloat("_MasterOpacity", 0.0f);
+        if (isRendering){
+            if (opacityTween != null){ opacityTween.Kill(); }
+            opacityTween = DOVirtual.Float(1.0f,0.0f, 1.0f, (float val)=>{
+                idleMaterial.SetFloat("_MasterOpacity", val);
+            }).OnComplete(()=>{
+                isRendering = false;
+            });
 
-        // }
+        }
     }
 
     // Update is called once per frame

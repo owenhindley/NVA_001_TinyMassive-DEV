@@ -63,7 +63,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _MasterOpacity: 0
+    - _MasterOpacity: 1
     - _Metallic: 0
     - _Mode: 0
     - _NoiseScale: 2
@@ -75,7 +75,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TextureOpacity: 0
+    - _TextureOpacity: 1
     - _TextureYScale: 0.5
     - _UVSec: 0
     - _ZWrite: 1

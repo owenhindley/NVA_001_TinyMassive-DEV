@@ -1,11 +1,11 @@
 {
     "appMode": 0,
-    "receiverIP": "127.0.0.1",
+    "receiverIP": "10.102.21.43",
     "defaultEnableNetworkSender": false,
     "port": "1337",
     "defaultFrameRate": 30,
     "patchFilename": "combined-patch.csv",
-    "artnet_IP": "127.0.0.1",
-    "enableTimeout": true,
-    "idleTimeout": 3
+    "artnet_IP": "2.0.0.1",
+    "enableTimeout": false,
+    "idleTimeout": 0
 }

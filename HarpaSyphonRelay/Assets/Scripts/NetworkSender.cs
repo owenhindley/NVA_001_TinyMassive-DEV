@@ -33,6 +33,10 @@ public class NetworkSender : MonoBehaviour
     private string ip = "127.0.0.1";
     private string port = "1337";
 
+    public const float SEND_RATE_FPS = 30.0f;
+    private float sendInterval = 1.0f / SEND_RATE_FPS;
+    private float timeLastRequest = -1;
+
     private Queue<AsyncGPUReadbackRequest> requests = new Queue<AsyncGPUReadbackRequest>();
 
     // Start is called before the first frame update
@@ -75,6 +79,14 @@ public class NetworkSender : MonoBehaviour
             threadRunning = false;
 
         }
+    }
+
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    void OnDestroy()
+    {
+        senderCancelled = true;
     }
 
 
@@ -140,7 +152,12 @@ public class NetworkSender : MonoBehaviour
             }
         }
 
-        requests.Enqueue(AsyncGPUReadback.Request(rt));
+        if (Time.realtimeSinceStartup - timeLastRequest > sendInterval){
+            timeLastRequest = Time.realtimeSinceStartup;
+            requests.Enqueue(AsyncGPUReadback.Request(rt));
+        }
+
+        
         
     }
 

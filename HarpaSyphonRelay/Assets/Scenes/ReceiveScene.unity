@@ -3136,12 +3136,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorOverrideConfig:
     appMode: 0
-    receiverIP: 127.0.0.1
+    receiverIP: 10.102.21.43
     defaultEnableNetworkSender: 0
     port: 1337
     defaultFrameRate: 30
     patchFilename: combined-patch.csv
-    artnet_IP: 127.0.0.1
+    artnet_IP: 2.0.0.1
     enableTimeout: 1
     idleTimeout: 3
   EditorDoConfigOverride: 1
@@ -3496,7 +3496,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2102996069}
   - component: {fileID: 2102996070}
-  - component: {fileID: 2102996071}
   m_Layer: 0
   m_Name: Main
   m_TagString: Untagged
@@ -3543,23 +3542,4 @@ MonoBehaviour:
   receiveColor32Array: []
   receiveColorArray: []
   harpaModel: {fileID: 1800553883}
-  screensaver: {fileID: 2102996071}
   doTestCycle: 0
---- !u!114 &2102996071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102996068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2144b4bf320e8499da17d1e6222931cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  idleMaterial: {fileID: 2100000, guid: 8429d49ff0f6c438ebc629d90de61ca1, type: 2}
-  target: {fileID: 8400000, guid: cfc476f415db243e48c11955da167b5f, type: 2}
-  sourceTexture: {fileID: 2800000, guid: f63aa9f7e360a40e781169bdbce86b24, type: 3}
-  isRendering: 0
-  doShowIdle: 0
-  doEndIdle: 0

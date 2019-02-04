@@ -8,7 +8,7 @@ public class GUITools : MonoBehaviour
 {
    public static int GUIItemHeight = 25;
    public static int GUIItemSpacing = 10;
-   public static int buttonWidth = 150;
+   public static int buttonWidth = 200;
 
    private static bool stylesCreated = false;
    public static GUIStyle whiteTextStyle;

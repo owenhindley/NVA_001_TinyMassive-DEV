@@ -33,7 +33,7 @@ public class TMEditorConfigurator : MonoBehaviour {
 		public bool EditorDoConfigOverride;
 
 		[Header("Generates and overwrites the config file based on these settings")]
-		[InspectorButton("CreateConfigFile")] public bool doCreateConfigFile;
+		[InspectorButton("LocalCreateConfigFile")] public bool doCreateConfigFile;
 
 		public void OnValidate(){
 			OverrideConfig = EditorOverrideConfig;
@@ -41,13 +41,18 @@ public class TMEditorConfigurator : MonoBehaviour {
 			Debug.Log("Updating override config");
 		}
 
-		public void CreateConfigFile(){
-			
-			var jsonString = JsonUtility.ToJson(OverrideConfig, true);
+		public void LocalCreateConfigFile(){
+			CreateConfigFile(OverrideConfig);
+		}
+
+		public static void CreateConfigFile(TMConfig.Config configToWrite){
+
+			var jsonString = JsonUtility.ToJson(configToWrite, true);
 			var configPath = Path.Combine(Path.GetFullPath(Application.streamingAssetsPath), TMConfig.configFilename);
 			Debug.Log("Saving JSON config file to " + configPath);
 			if (File.Exists(configPath)){ File.Delete(configPath); }
 			File.WriteAllText(configPath, jsonString);
+
 		}
 
     }

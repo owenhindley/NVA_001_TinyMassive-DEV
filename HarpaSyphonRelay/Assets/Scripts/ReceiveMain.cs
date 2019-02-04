@@ -19,12 +19,16 @@ public class ReceiveMain : MonoBehaviour
 
     public bool showUI = true;
 
+    public bool showDebugTexture = true;
+
     public const int texWidth = 77;
     public const int texHeight = 13;
 
     private float timeLastFrame = -1.0f;
 
     private float testCycleSpeed = 0.01f;
+
+    public float receivedFPS = -1;
 
     public bool testCycleRunning = false;
 
@@ -34,8 +38,9 @@ public class ReceiveMain : MonoBehaviour
     public Color32[] receiveColor32Array = new Color32[0];
     public Color[] receiveColorArray = new Color[0];
 
+    private string receiveAnimation = "|-XO";
+
     public GameObject harpaModel;
-    public IdleScreensaver screensaver;
 
     [InspectorButton("RunTestCycle")] public bool doTestCycle;
 
@@ -55,6 +60,16 @@ public class ReceiveMain : MonoBehaviour
 				
 			});
 
+            if (showDebugTexture){
+                GUITools.Button(ref pos, "Hide Debug Texture", ()=>{
+                    showDebugTexture = false;
+                });
+            } else {
+                GUITools.Button(ref pos, "Show Debug Texture", ()=>{
+                    showDebugTexture = true;
+                });
+            }
+
             if (!testCycleRunning){
                 GUITools.Label(ref pos, "Test Cycle Speed");
                 testCycleSpeed = ((float)GUITools.IntSlider(ref pos, Mathf.FloorToInt(testCycleSpeed * 1000.0f), 0, 1000) / 1000.0f);
@@ -68,7 +83,11 @@ public class ReceiveMain : MonoBehaviour
                 });
             }
 
-            GUITools.Label(ref pos, "Frames received : " + framesReceived);
+            char receiveAnim = receiveAnimation[framesReceived % receiveAnimation.Length];
+
+            GUITools.Label(ref pos, "Frames received : " + receiveAnim);
+            GUITools.Label(ref pos, "Received FPS : " + receivedFPS);
+            GUITools.Label(ref pos, "Sending to artnet on : " + TMConfig.Current.artnet_IP);
 			
 
 			GUITools.Button(ref pos, "Update All", ()=>{
@@ -98,7 +117,7 @@ public class ReceiveMain : MonoBehaviour
     void Start()
     {
         frameRate = TMConfig.Current.defaultFrameRate;
-        Application.targetFrameRate = frameRate;
+        // Application.targetFrameRate = frameRate;
 
         receiver = new SocketReceiver(TMConfig.Current.port);
         receiver.OnBytes += OnBytes;
@@ -118,27 +137,24 @@ public class ReceiveMain : MonoBehaviour
     void Update()
     {
         if (receivedNewFrame){
-            if (screensaver.isRendering){
-                screensaver.EndIdle();
-            }
-
+          
+            float frameTime = Time.realtimeSinceStartup - timeLastFrame;
+            receivedFPS = Mathf.RoundToInt(1.0f / frameTime);
             timeLastFrame = Time.realtimeSinceStartup;
-            receiveTex.SetPixels(receiveColorArray, 0);
-            receiveTex.Apply();
+            if (showDebugTexture){
+                receiveTex.SetPixels(receiveColorArray, 0);
+                receiveTex.Apply();
+
+                if (harpaModel.activeSelf){
+                    Graphics.CopyTexture(receiveTex, croppedRT);
+                }
+            }
+           
             framesReceived++;
             receivedNewFrame = false;
 
-            if (harpaModel.activeSelf){
-                Graphics.CopyTexture(receiveTex, croppedRT);
-            }
 
-            artnet.RenderColor32Array(receiveColor32Array);
-        }
-
-        if (TMConfig.Current.enableTimeout && !screensaver.isRendering){
-            if (Time.realtimeSinceStartup - timeLastFrame > TMConfig.Current.idleTimeout){
-                screensaver.ShowIdle();
-            }
+            // artnet.RenderColor32Array(receiveColor32Array);
         }
         
     }
@@ -163,8 +179,8 @@ public class ReceiveMain : MonoBehaviour
 
     void UpdateSettings(){
         StopAllCoroutines();
-        frameRate = updatedFrameRate;
-        Application.targetFrameRate = frameRate;
+        // frameRate = updatedFrameRate;
+        // Application.targetFrameRate = frameRate;
         framesReceived = 0;
     }
 

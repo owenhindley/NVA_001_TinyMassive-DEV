@@ -44,6 +44,7 @@ public class CaptureMain : MonoBehaviour {
 	public string renderServerIP = "127.0.0.1";
 	public string renderServerPort = "1337";
 
+	public IdleScreensaver screensaver;
 
 	public GameObject harpaModel;
 	
@@ -58,6 +59,7 @@ public class CaptureMain : MonoBehaviour {
 		targetAspectRatio = (float)targetTexture.width / (float)targetTexture.height;
 		yield return new WaitForSeconds(1.0f);
 		UpdateSettings();
+		screensaver.ShowIdle();
 	}
 
 	void OnGUI(){
@@ -74,6 +76,16 @@ public class CaptureMain : MonoBehaviour {
 				}
 				
 			});
+
+			if (screensaver.isRendering){
+				GUITools.Button(ref pos, "Switch To Syphon", ()=>{
+					screensaver.EndIdle();
+				});
+			} else {
+				GUITools.Button(ref pos, "Switch To Screensaver", ()=>{
+					screensaver.ShowIdle();
+				});
+			}
 
 			GUITools.Button(ref pos, networkSendEnabled ? "Disable Network Send" : "Enable Network Send", ()=>{
 				if (networkSendEnabled){
@@ -121,11 +133,18 @@ public class CaptureMain : MonoBehaviour {
 				});
 			}
 
-			if (networkSendEnabled) {
-				GUITools.Label(ref pos, "Render server IP");
-				renderServerIP = GUITools.TextField(ref pos, renderServerIP);
-				renderServerPort = GUITools.TextField(ref pos, renderServerPort);
-			}
+			
+			GUITools.Label(ref pos, "Render server IP");
+			renderServerIP = GUITools.TextField(ref pos, renderServerIP);
+			renderServerPort = GUITools.TextField(ref pos, renderServerPort);
+			
+			GUITools.Button(ref pos, "Write Config", ()=>{
+				TMConfig.Config newConfig = TMConfig.Current;
+				newConfig.receiverIP = renderServerIP;
+				newConfig.port = renderServerPort;
+
+				TMEditorConfigurator.CreateConfigFile(newConfig);
+			});
 			
 
 			if (frameRate == updatedFrameRate){
@@ -157,17 +176,22 @@ public class CaptureMain : MonoBehaviour {
 			}
 		}
 		
+		if (!screensaver.isRendering){
 
-		croppedOutputMaterial.SetFloat("nSourceTexX", 0.0f);
-		debugNSourceTexY = ((float)yOffset / sourceTexture.height);
-		croppedOutputMaterial.SetFloat("nSourceTexY", debugNSourceTexY);
+			croppedOutputMaterial.SetFloat("nSourceTexX", 0.0f);
+			debugNSourceTexY = ((float)yOffset / sourceTexture.height);
+			croppedOutputMaterial.SetFloat("nSourceTexY", debugNSourceTexY);
+
+			
+			croppedOutputMaterial.SetFloat("nSourceTexWidth", Width);
+			croppedOutputMaterial.SetFloat("nSourceTexHeight", Height);
+
+
+			Graphics.Blit(sourceTexture, targetTexture, croppedOutputMaterial);
+
+		}
 
 		
-		croppedOutputMaterial.SetFloat("nSourceTexWidth", Width);
-		croppedOutputMaterial.SetFloat("nSourceTexHeight", Height);
-
-
-		Graphics.Blit(sourceTexture, targetTexture, croppedOutputMaterial);
 		// Graphics.CopyTexture(sourceTexture, 0, 0, 0, sourceTexture.height - (Height + yOffset), Width, Height, targetTexture, 0, 0, 0, targetTexture.height-Height);
 
 	}
