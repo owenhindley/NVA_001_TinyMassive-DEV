@@ -7,7 +7,6 @@ using TMPro;
 using Klak;
 using System.Runtime.InteropServices;
 using System;
-using UnityEngine.PostProcessing;
 
 [ExecuteInEditMode]
 public class CaptureMain : MonoBehaviour {
