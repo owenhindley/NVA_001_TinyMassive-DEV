@@ -50,6 +50,7 @@ public class ArtnetTransmit : MonoBehaviour
 
     public int debugPixelX = 39;
     public int debugPixelY = 12;
+    public byte debugPixelFlashBrightness = 255;
 
     [InspectorButton("DebugSendDummyData")] public bool doSendDummyData;
     [InspectorButton("FlashDebugPixel")] public bool doFlashDebugPixel;
@@ -149,10 +150,10 @@ public class ArtnetTransmit : MonoBehaviour
 
         bool flip = true;
         for (int i=0; i < 8; i++){
-            arr[pixelIndex] = flip ? new Color32(255,255,255,255) : new Color32(0,0,0,255);
+            arr[pixelIndex] = flip ? new Color32(debugPixelFlashBrightness,debugPixelFlashBrightness,debugPixelFlashBrightness,255) : new Color32(0,0,0,255);
             flip = !flip;
             RenderColor32Array(arr);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
             
         }
 

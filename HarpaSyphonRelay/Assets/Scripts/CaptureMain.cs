@@ -7,6 +7,7 @@ using TMPro;
 using Klak;
 using System.Runtime.InteropServices;
 using System;
+using UnityEngine.PostProcessing;
 
 [ExecuteInEditMode]
 public class CaptureMain : MonoBehaviour {
@@ -43,6 +44,8 @@ public class CaptureMain : MonoBehaviour {
 	public string renderServerIP = "127.0.0.1";
 	public string renderServerPort = "1337";
 
+	public PostProcessingBehaviour mainPPB;
+
 	public GameObject harpaModel;
 	
 	// Use this for initialization
@@ -71,6 +74,13 @@ public class CaptureMain : MonoBehaviour {
 				}
 				
 			});
+
+			if (mainPPB != null){
+				GUITools.Button(ref pos, "Toggle Post Processing", ()=>{
+					mainPPB.enabled = !mainPPB.enabled;
+
+				});
+			}
 
 			GUITools.Button(ref pos, networkSendEnabled ? "Disable Network Send" : "Enable Network Send", ()=>{
 				if (networkSendEnabled){
