@@ -29,6 +29,7 @@ public class AudioManager : MonoBehaviour
     {
         for (int i=0; i < NUM_SOURCES; i++){
             var s = gameObject.AddComponent<AudioSource>();
+            s.volume = 0.75f;
             sources.Add(s);
         }
     }

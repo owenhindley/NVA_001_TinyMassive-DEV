@@ -16,7 +16,7 @@ public class ConstellationSequence : MonoBehaviour
 
     public TextScroller textScroller;
 
-    
+    public float startWaitTime = 3.0f;
 
     public float postTextWaitTime = 1.0f;
     public float preTextWaitTime = 2.0f;
@@ -28,14 +28,19 @@ public class ConstellationSequence : MonoBehaviour
         ConstList.ForEach((Constellation c)=>{
             c.gameObject.SetActive(true);
         });
+
+        StartCoroutine(ConstellationSequenceRoutine(startWaitTime));
+
     }
 
     public void RunSequence(){
 
-        StartCoroutine(ConstellationSequenceRoutine());
+        StartCoroutine(ConstellationSequenceRoutine(0.0f));
     }
 
-    IEnumerator ConstellationSequenceRoutine(){
+    IEnumerator ConstellationSequenceRoutine(float startDelay){
+
+        yield return new WaitForSeconds(startDelay);
 
         for (int i=0; i < ConstList.Count; i++){
 
