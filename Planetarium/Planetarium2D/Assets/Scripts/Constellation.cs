@@ -19,7 +19,8 @@ public class Constellation : MonoBehaviour
     // public ConstellationLine line;
     public List<ConstellationDottedLine> lines;
 
-   
+    public string noteSequence = "";
+    private string[] notes;
 
     public Vector3 scrollEndPosition = Vector3.zero;
     
@@ -31,7 +32,9 @@ public class Constellation : MonoBehaviour
     void Start()
     {
         GetStars();
-        // line.lineWidth = 0.0f;
+        
+        notes = noteSequence.Split(' ');
+
     }
 
     void GetStars(){
@@ -58,8 +61,13 @@ public class Constellation : MonoBehaviour
     }
 
     public IEnumerator InRoutine(){
+        int noteIndex= -1;
         for (int i=0; i < transitionsIn.Count; i++){
             transitionsIn[i].DoTransition();
+            noteIndex = i % notes.Length;
+            if (noteIndex >= 0){
+                AudioManager.Instance.PlayStarNote(notes[noteIndex]);
+            }
             yield return new WaitForSeconds(StarsInTime / (float)transitionsIn.Count);
         }
         yield return new WaitForSeconds(1.0f);

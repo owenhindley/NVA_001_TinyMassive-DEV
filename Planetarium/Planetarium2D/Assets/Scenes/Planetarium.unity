@@ -6327,6 +6327,7 @@ MonoBehaviour:
   lines:
   - {fileID: 1756024518}
   - {fileID: 1140057681}
+  noteSequence: C2 G# A# C2 F D# G#
   scrollEndPosition: {x: 0, y: 0, z: 0}
   scrollTime: 4
   titleEN: Cygnus
@@ -6699,6 +6700,7 @@ MonoBehaviour:
   lines:
   - {fileID: 618786480}
   - {fileID: 847708120}
+  noteSequence: 
   scrollEndPosition: {x: 0, y: 0, z: 0}
   scrollTime: 4
   titleEN: Constellation
@@ -8872,6 +8874,7 @@ MonoBehaviour:
   doTransitionOut: 0
   lines:
   - {fileID: 1981657312}
+  noteSequence: D2 A B D
   scrollEndPosition: {x: 0, y: 0, z: 0}
   scrollTime: 4
   titleEN: Canis Minor
@@ -9064,6 +9067,7 @@ MonoBehaviour:
   lines:
   - {fileID: 980014095}
   - {fileID: 389336325}
+  noteSequence: C C# A# G# F C#2 D#2 F C2 A# G#2
   scrollEndPosition: {x: 0, y: 0, z: 0}
   scrollTime: 4
   titleEN: Taurus
@@ -13217,6 +13221,7 @@ MonoBehaviour:
   - {fileID: 1121739850}
   - {fileID: 1016077949}
   - {fileID: 1114393239}
+  noteSequence: C3 G2 A2 E2 F2 C2 F2 G2 C2 B C2 F2 G2
   scrollEndPosition: {x: 0, y: 10, z: 0}
   scrollTime: 4
   titleEN: Orion
@@ -14912,6 +14917,7 @@ MonoBehaviour:
   doTransitionOut: 0
   lines:
   - {fileID: 480992918}
+  noteSequence: G2 C2 A2 D2 C
   scrollEndPosition: {x: 0, y: 0, z: 0}
   scrollTime: 4
   titleEN: Cassiopea
@@ -15243,6 +15249,83 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doDoTransition: 0
+--- !u!1 &1196840230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1196840231}
+  - component: {fileID: 1196840232}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1196840231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196840230}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1196840232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196840230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be1670a1579f4c50bfb1e2bcc1c07fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noteClips:
+  - {fileID: 8300000, guid: 8f9122cdbe7a8418195f81e14eb0a517, type: 3}
+  - {fileID: 8300000, guid: fa4e1687d054848fcaf7b0cfa093a4ef, type: 3}
+  - {fileID: 8300000, guid: a9afb10afd36c454bb7bab1e0a1f6050, type: 3}
+  - {fileID: 8300000, guid: 44054e171acf840ad88a01c6aff36631, type: 3}
+  - {fileID: 8300000, guid: 8eae4667987cb4ab7a133b54f5bf2696, type: 3}
+  - {fileID: 8300000, guid: bef9592339ba94209bf10262efd12997, type: 3}
+  - {fileID: 8300000, guid: b02a3f6a13b3641b787cc10bdf4d059b, type: 3}
+  - {fileID: 8300000, guid: 1c5d54cf794e24e21b99677f65577835, type: 3}
+  - {fileID: 8300000, guid: 090b414c9407c431eae4b496ffcdb4b2, type: 3}
+  - {fileID: 8300000, guid: 54c9f02503d1547f6a6239a8d049580f, type: 3}
+  - {fileID: 8300000, guid: df0665a68e0ca413fa46195032b67da0, type: 3}
+  - {fileID: 8300000, guid: be32087ce712a4c859c520ef21c160e7, type: 3}
+  - {fileID: 8300000, guid: 8074202f3b5804ca89029039ef4e51ad, type: 3}
+  - {fileID: 8300000, guid: b7e15416e7a1740cf911d02d68ad8590, type: 3}
+  - {fileID: 8300000, guid: 6bccf98446e3c496491d3d03c4409ebc, type: 3}
+  - {fileID: 8300000, guid: 89f105c76788347128be294fb273f45e, type: 3}
+  - {fileID: 8300000, guid: 9df7b38d977c64cd2afccb6751b8779a, type: 3}
+  - {fileID: 8300000, guid: 3b7ceaee5e6d54bfeabf44c8b283c71b, type: 3}
+  - {fileID: 8300000, guid: 2e8457ecf94564c8d8d5539f3f518ce5, type: 3}
+  - {fileID: 8300000, guid: 347f8038feb08469d896d202669d01d6, type: 3}
+  - {fileID: 8300000, guid: ec216cfb852064daba9e3fe1f29cccff, type: 3}
+  - {fileID: 8300000, guid: 76268968a96e448d6b7f9a9ef5628dd5, type: 3}
+  - {fileID: 8300000, guid: 5cd843c38e578491b93054d8dcbcbc4f, type: 3}
+  - {fileID: 8300000, guid: cbe2b10e594ce4c949861a610d342bcd, type: 3}
+  - {fileID: 8300000, guid: eb1cf194f3e244fa29e35a9664c966d6, type: 3}
+  - {fileID: 8300000, guid: 367540a9736904a3eb42c29056e2d701, type: 3}
+  - {fileID: 8300000, guid: 1ba270d31bc2d40cb8cafa474367f819, type: 3}
+  - {fileID: 8300000, guid: f5dcb2af413d846709d52506be724e8f, type: 3}
+  - {fileID: 8300000, guid: 6b4d52a382c084acfa91823d05786057, type: 3}
+  - {fileID: 8300000, guid: 60531b3b9397f4d3080d074ef2f7f39f, type: 3}
+  - {fileID: 8300000, guid: 5fbc27dce25644d07bd92f6bbf21c5d3, type: 3}
+  - {fileID: 8300000, guid: 0b374490b572a452a8842bf86b7f2479, type: 3}
+  starDelayTime: 0.05
 --- !u!1001 &1203809290
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16753,6 +16836,7 @@ MonoBehaviour:
   doTransitionOut: 0
   lines:
   - {fileID: 444113955}
+  noteSequence: C A G D2 C2 B E
   scrollEndPosition: {x: 0, y: 0, z: 0}
   scrollTime: 4
   titleEN: Ursa Major
@@ -17556,6 +17640,7 @@ MonoBehaviour:
   doTransitionOut: 0
   lines:
   - {fileID: 569745332}
+  noteSequence: F G# C D# F2
   scrollEndPosition: {x: 0, y: 0, z: 0}
   scrollTime: 4
   titleEN: Lyra
@@ -18283,6 +18368,7 @@ MonoBehaviour:
   doTransitionOut: 0
   lines:
   - {fileID: 1678889292}
+  noteSequence: F G2 E2 A2 C3 F2
   scrollEndPosition: {x: 0, y: 0, z: 0}
   scrollTime: 4
   titleEN: Auriga
@@ -18962,6 +19048,7 @@ MonoBehaviour:
   lines:
   - {fileID: 1512458709}
   - {fileID: 239181565}
+  noteSequence: E G E2 E G D2 E G C2
   scrollEndPosition: {x: 0, y: 0, z: 0}
   scrollTime: 4
   titleEN: Leo
@@ -19958,6 +20045,7 @@ MonoBehaviour:
   doTransitionOut: 0
   lines:
   - {fileID: 1318856705}
+  noteSequence: C2 A2 G2 D3 C3 B2 E2
   scrollEndPosition: {x: 0, y: 0, z: 0}
   scrollTime: 4
   titleEN: Ursa Minor
@@ -22277,7 +22365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1950625774
 Transform:
   m_ObjectHideFlags: 0
@@ -22329,6 +22417,7 @@ MonoBehaviour:
   lines:
   - {fileID: 1429145182}
   - {fileID: 1890308766}
+  noteSequence: D#2 B2 F# G# A B F# E# F# A# G# G#
   scrollEndPosition: {x: 0, y: 0, z: 0}
   scrollTime: 4
   titleEN: Perseus
@@ -23203,6 +23292,7 @@ MonoBehaviour:
   - {fileID: 51298324}
   - {fileID: 368108671}
   - {fileID: 925910618}
+  noteSequence: G#3 F#3 E3 C#3 C#2 E2 A2 B2 F#2 B
   scrollEndPosition: {x: 0, y: 12, z: 0}
   scrollTime: 4
   titleEN: Gemini
