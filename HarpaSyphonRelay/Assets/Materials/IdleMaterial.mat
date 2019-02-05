@@ -66,6 +66,7 @@ Material:
     - _MasterOpacity: 1
     - _Metallic: 0
     - _Mode: 0
+    - _NoiseOpacity: 0.2
     - _NoiseScale: 2
     - _NoiseSpeed: 0.2
     - _OcclusionStrength: 1

@@ -8,6 +8,7 @@
         _MasterOpacity("MasterOpacity", float) = 0
         _NoiseSpeed("NoiseSpeed", float) = 0
         _NoiseScale("NoiseScale", float) = 0
+        _NoiseOpacity("NoiseOpacity", float) = 0
         _ScrollSpeed("ScrollSpeed", float) = 0
         _ScrollInterval("ScrollInterval", float) = 0
 
@@ -79,6 +80,7 @@
             float _TextureYScale;
             float _MasterOpacity;
             float _NoiseSpeed;
+            float _NoiseOpacity;
             float _NoiseScale;
             float _ScrollSpeed;
             float _ScrollInterval;
@@ -103,10 +105,10 @@
                 noiseOut.z = saturate(noiseOut.z);
                 noiseOut.x = 0.0;   // remove all the red
 
-                if (length(texCol) > 0.9f){
+                if (texCol.r > 0.0f){
                     return texCol * _MasterOpacity;
                 } else {
-                    return float4(noiseOut * _MasterOpacity, 1.0f);
+                    return float4(noiseOut * _NoiseOpacity * _MasterOpacity, 1.0f);
                 }
                 
             }

@@ -95,7 +95,7 @@ public class ArtnetTransmit : MonoBehaviour
     public FixtureAddress[] parseCSV(string text){
         var rows = text.Split('\n');
         var list = new List<FixtureAddress>();
-        for (int i=0; i < rows.Length; i++){
+        for (int i=rows.Length-1; i > -1; i--){
             var cols = rows[i].Split(',');
             for (int j=0; j< cols.Length; j++){
                 var patch = cols[j].Split(':');

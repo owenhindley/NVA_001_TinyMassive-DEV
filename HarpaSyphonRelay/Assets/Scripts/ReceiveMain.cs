@@ -195,7 +195,7 @@ public class ReceiveMain : MonoBehaviour
         receiveColor32Array = new Color32[texWidth * texHeight];
         receiveColorArray = new Color[texWidth * texHeight];
 
-        int FLASH_COUNT = 6;
+        int FLASH_COUNT = 0;
         bool flashOn = false;
         for (int i=0; i < FLASH_COUNT; i++){
             for (int idx=0; idx < receiveColorArray.Length; idx++){
