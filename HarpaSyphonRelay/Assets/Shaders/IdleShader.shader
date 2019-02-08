@@ -110,6 +110,8 @@
                 } else {
                     return float4(noiseOut * _NoiseOpacity * _MasterOpacity, 1.0f);
                 }
+
+                //  return float4(noiseOut * _NoiseOpacity * _MasterOpacity, 1.0f);
                 
             }
             ENDCG
